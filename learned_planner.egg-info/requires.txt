@@ -1,0 +1,32 @@
+accelerate~=0.32.1
+matplotlib==3.9.0
+gymnasium~=0.29.0
+wandb~=0.17.4
+moviepy~=1.0.3
+shimmy~=1.1.0
+optree~=0.10.0
+numpy==1.26.4
+scikit-learn~=1.4.0
+cairosvg~=2.7.1
+names-generator~=0.2.0
+torchvision~=0.18.1
+stable_baselines3@ git+https://github.com/AlignmentResearch/learned-planners-stable-baselines3.git
+gym_sokoban@ git+https://github.com/AlignmentResearch/gym-sokoban.git
+farconf@ git+https://github.com/AlignmentResearch/farconf.git
+lp_cleanba@ git+https://github.com/AlignmentResearch/lp-cleanba.git@ef059c3d7e1d22515cc9d18e5927dc49db60cf1c
+mamba_lens@ git+https://github.com/Phylliida/MambaLens.git
+
+[dev]
+pre-commit~=3.6.0
+pip-tools~=7.4.1
+notebook~=6.5.4
+pyright~=1.1.353
+black~=23.3.0
+ruff~=0.1.14
+mypy~=1.9.0
+pytest~=8.1.1
+pytest-cov<5,>=4
+pytest-env~=1.1.2
+
+[torch]
+torch==2.3.1

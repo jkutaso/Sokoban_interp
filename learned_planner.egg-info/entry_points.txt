@@ -1,0 +1,2 @@
+[console_scripts]
+main = learned_planner.configs.command_config:main

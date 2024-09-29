@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: learned-planner
+Version: 0.1.0
+Summary: Planning behavior in RNNs that plays Sokoban.
+Author-email: Adrià Garriga-Alonso <adria@far.ai>, Mohammad Taufeeque <taufeeque@far.ai>
+Project-URL: Repository, https://github.com/AlignmentResearch/learned-planner/
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: accelerate~=0.32.1
+Requires-Dist: matplotlib==3.9.0
+Requires-Dist: gymnasium~=0.29.0
+Requires-Dist: wandb~=0.17.4
+Requires-Dist: moviepy~=1.0.3
+Requires-Dist: shimmy~=1.1.0
+Requires-Dist: optree~=0.10.0
+Requires-Dist: numpy==1.26.4
+Requires-Dist: scikit-learn~=1.4.0
+Requires-Dist: cairosvg~=2.7.1
+Requires-Dist: names-generator~=0.2.0
+Requires-Dist: torchvision~=0.18.1
+Requires-Dist: stable_baselines3@ git+https://github.com/AlignmentResearch/learned-planners-stable-baselines3.git
+Requires-Dist: gym_sokoban@ git+https://github.com/AlignmentResearch/gym-sokoban.git
+Requires-Dist: farconf@ git+https://github.com/AlignmentResearch/farconf.git
+Requires-Dist: lp_cleanba@ git+https://github.com/AlignmentResearch/lp-cleanba.git@ef059c3d7e1d22515cc9d18e5927dc49db60cf1c
+Requires-Dist: mamba_lens@ git+https://github.com/Phylliida/MambaLens.git
+Provides-Extra: torch
+Requires-Dist: torch==2.3.1; extra == "torch"
+Provides-Extra: dev
+Requires-Dist: pre-commit~=3.6.0; extra == "dev"
+Requires-Dist: pip-tools~=7.4.1; extra == "dev"
+Requires-Dist: notebook~=6.5.4; extra == "dev"
+Requires-Dist: pyright~=1.1.353; extra == "dev"
+Requires-Dist: black~=23.3.0; extra == "dev"
+Requires-Dist: ruff~=0.1.14; extra == "dev"
+Requires-Dist: mypy~=1.9.0; extra == "dev"
+Requires-Dist: pytest~=8.1.1; extra == "dev"
+Requires-Dist: pytest-cov<5,>=4; extra == "dev"
+Requires-Dist: pytest-env~=1.1.2; extra == "dev"
+
+# Sokoban_interp
+Project to investigate how the RL agent plans when playing Sokoban
