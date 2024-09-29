@@ -236,7 +236,6 @@ def think_for_n_steps(
     all_values = th.zeros((num_reset_envs, n_steps * repeats_per_step, 1), dtype=th.float32, device=policy.device)
     all_cache = np.zeros((num_reset_envs, n_steps), dtype=object)
     for step_i in range(n_steps):
-        print(obs_for_start_envs.shape)
         (actions, values, log_probs, lstm_states_for_start_envs), cache = policy.run_with_cache(
             obs_for_start_envs,
             lstm_states_for_start_envs,
@@ -354,9 +353,8 @@ def evaluate_policy_and_collect_dataset(
 
     device = model.device
     observations = env.reset()
-    print(observations[0].shape)
     observations = obs_as_tensor(observations, device)
-    
+    observations = observations.squeeze(0)
     assert isinstance(observations, th.Tensor)
 
     # Hardcode episode counts and the reward accumulators to use CPU. They're used for bookkeeping and don't involve
@@ -366,7 +364,7 @@ def evaluate_policy_and_collect_dataset(
 
     states: tuple[th.Tensor, ...] | None = model.recurrent_initial_state(n_envs, device=device)
     current_rewards = th.zeros(n_envs, dtype=th.float32, device=device)
-    episode_starts = th.ones((env.num_envs,), dtype=th.bool, device=device)
+    episode_starts = th.zeros((env.num_envs,), dtype=th.bool, device=device)
 
     steps_including_repeats = (n_steps_to_think + max_episode_steps) * repeats_per_step
 
@@ -377,7 +375,6 @@ def evaluate_policy_and_collect_dataset(
     all_model_cache = np.zeros((n_envs, n_steps_to_think + max_episode_steps), dtype=object)
     all_level_infos = -np.ones((n_envs, 2), dtype=int)
     if "level_file_idx" in env.reset_infos[0]:
-        print(env.reset_infos)
         all_level_infos[:] = [(info["level_file_idx"].item(), info["level_idx"].item()) for info in env.reset_infos]
 
     idx_in_eps = th.zeros((n_envs,), dtype=th.int64)
@@ -406,6 +403,9 @@ def evaluate_policy_and_collect_dataset(
                     all_pred_actions[episode_starts, : n_steps_to_think * repeats_per_step] = thinking_actions.cpu()
                     all_pred_values[episode_starts, : n_steps_to_think * repeats_per_step] = thinking_values.cpu()
                     episode_starts_cpu = episode_starts.cpu()
+                    print(episode_starts)
+                    print(all_model_cache.shape)
+                    print(thinking_cache.shape)
                     all_model_cache[episode_starts_cpu, :n_steps_to_think] = thinking_cache
                     idx_in_eps_with_repeats[episode_starts_cpu] += n_steps_to_think * repeats_per_step
                 episode_starts = th.zeros_like(episode_starts)
@@ -504,6 +504,7 @@ def collect_dataset(model_path, args):
             BOXOBAN_CACHE=pathlib.Path(args.boxoban_cache),
             envpool=args.envpool,
         )
+        
         cfg, policy = load_jax_model_to_torch(model_path, eval_env)
         assert isinstance(cfg.features_extractor, ConvLSTMOptions)
         policy = policy.to(device)
