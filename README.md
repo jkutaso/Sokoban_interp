@@ -1,2 +1,2 @@
 # Sokoban_interp
-Project to investigate how the RL agent plans when playing Sokoban
+This was supposed to be a project to investigate how the RL agent plans when playing Sokoban. However, after about 10 hours of work it seems like it is legitimately impossible to run their code to generate the dataset, so I'd have to rewrite all of the code they've already written which seems like a waste. I'll keep this here in case I ever want to try again or someone else can benefit from the effort I've put in already.
